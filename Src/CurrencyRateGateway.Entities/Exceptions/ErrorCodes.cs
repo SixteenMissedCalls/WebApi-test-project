@@ -1,12 +1,13 @@
 ﻿#nullable enable
 using System;
-using FluentResults;
+using System.Linq;
+using System.Net;
+using System.Reflection;
+using Microsoft.Extensions.Logging;
 using Sstv.DomainExceptions;
 
 namespace CurrencyRateGateway.Entities.Exceptions
 {
-    [ExceptionConfig(ClassName = "CurrencyRateException")]
-    [ErrorDescription(Prefix = "CR", Level = Level.Medium)]
     public enum ErrorCodes
     {
         [ErrorDescription(Description = "Unknown error", Level = Level.Critical)]
@@ -23,40 +24,57 @@ namespace CurrencyRateGateway.Entities.Exceptions
 
         [ErrorDescription(Description = "Bank of Russia service unavailable", Level = Level.Critical)]
         BankServiceUnavailable = 4,
-
-        [ErrorDescription(Description = "Invalid data format from bank", Level = Level.Critical)]
-        InvalidBankDataFormat = 5
+        
+        [ErrorDescription(Description = "Invalid url format for bank api", Level = Level.Critical)]
+        EmptyServiceUrl = 6
     }
     
-    public sealed class CurrencyRateError : Error
+    public sealed class CurrencyRateError 
     {
-        public ErrorCodes ErrorCode { get; }
-        public Guid ErrorId { get; }
+        public ErrorCodes Code { get; }
+        
+        public string Message { get; }
+        
+        public LogLevel LogLevel { get; }
 
-        public CurrencyRateError(ErrorCodes errorCode, Exception? innerException = null)
+        public CurrencyRateError(ErrorCodes errorCode)
         {
-            ErrorId = Guid.NewGuid();
-            ErrorCode = errorCode;
-        
-            var description = errorCode.GetDescription();
-            Message = $"{description.ErrorCode}: {description.Description}";
-        
-            Metadata.Add("Code", description.ErrorCode);
-            Metadata.Add("Level", description.Level.ToString());
-            Metadata.Add("ErrorId", ErrorId);
-
-            if (innerException != null)
-            {
-                CausedBy(innerException);
-            }
+            Code = errorCode;
+            Message = $"{errorCode}: {GetDefaultMessage(errorCode)}";
+            LogLevel = GetLogLevel(errorCode);
         }
+        
+        private static string GetDefaultMessage(ErrorCodes code)
+        {
+            var memberInfo = typeof(ErrorCodes).GetMember(code.ToString()).FirstOrDefault();
+            var attribute = memberInfo?.GetCustomAttribute<ErrorDescriptionAttribute>();
+            return attribute?.Description ?? "Unknown error";
+        }
+        
+        private static LogLevel GetLogLevel(ErrorCodes code)
+        {
+            var memberInfo = typeof(ErrorCodes).GetMember(code.ToString()).FirstOrDefault();
+            var attribute = memberInfo?.GetCustomAttribute<ErrorDescriptionAttribute>();
+            var level = attribute?.Level ?? Level.Medium;
+
+            return ConvertToLogLevel(level);
+        }
+        
+        private static LogLevel ConvertToLogLevel(Level level) => level switch
+        {
+            Level.NotError => LogLevel.Information,
+            Level.Low => LogLevel.Warning,
+            Level.Medium => LogLevel.Warning,
+            Level.Fatal => LogLevel.Critical,
+            _ => LogLevel.Error
+        };
     }
     
     public static class ErrorCodeExtensions
     {
-        public static CurrencyRateError ToDomainError(this ErrorCodes errorCodes, Exception? innerException = null)
+        public static CurrencyRateError ToDomainError(this ErrorCodes errorCodes)
         {
-            return new CurrencyRateError(errorCodes, innerException);
+            return new CurrencyRateError(errorCodes);
         }
     }
 }

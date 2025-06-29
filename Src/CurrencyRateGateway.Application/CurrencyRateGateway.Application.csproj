@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Common\Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\CurrencyRateGateway.Entities\CurrencyRateGateway.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0-preview.5.25277.114" />
   </ItemGroup>
 
 </Project>
