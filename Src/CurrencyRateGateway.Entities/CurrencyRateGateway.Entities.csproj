@@ -5,9 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-    <Folder Include="Common\Interfaces\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="FluentResults" Version="4.0.0" />
+    <PackageReference Include="Sstv.DomainExceptions" Version="3.1.0" />
   </ItemGroup>
 
 </Project>
