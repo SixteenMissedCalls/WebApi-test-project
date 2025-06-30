@@ -29,7 +29,7 @@ namespace CurrencyRateGateway.Entities.Exceptions
         EmptyServiceUrl = 6
     }
     
-    public sealed class CurrencyRateError 
+    public class CurrencyRateError 
     {
         public ErrorCodes Code { get; }
         

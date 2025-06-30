@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using CurrencyRateGateway.Application.Queries;
-using FluentResults.Extensions.AspNetCore;
+using CurrencyRateGateway.Application.Queries.RateQuery;
+using CurrencyRateGateway.Web.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace CurrencyRateGateway.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetCurrencies([FromQuery] string currencyCode, [FromQuery] DateTime? date)
+        public async Task<IActionResult> GetCurrencies([FromQuery] string currencyCode, [FromQuery] DateTime? date)
         {
             var query = new GetRatesQuery
             {
@@ -28,12 +29,7 @@ namespace CurrencyRateGateway.Web.Controllers
             };
 
             var result = await _mediator.Send(query);
-
-            if (result.IsSuccess)
-                return Ok(result);
-            
-            return 
-
+            return result.ToActionResult();
         }
     }
 }

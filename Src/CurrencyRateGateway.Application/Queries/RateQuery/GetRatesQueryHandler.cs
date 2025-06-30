@@ -10,7 +10,7 @@ using CurrencyRateGateway.Entities.Models;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace CurrencyRateGateway.Application.Queries
+namespace CurrencyRateGateway.Application.Queries.RateQuery
 {
     public class GetRatesQueryHandler : IRequestHandler<GetRatesQuery, Result<List<CurrencyRate>, CurrencyRateError>>
     {

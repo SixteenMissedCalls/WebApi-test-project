@@ -6,7 +6,7 @@ using CurrencyRateGateway.Entities.Exceptions;
 using CurrencyRateGateway.Entities.Models;
 using MediatR;
 
-namespace CurrencyRateGateway.Application.Queries
+namespace CurrencyRateGateway.Application.Queries.RateQuery
 {
     public class GetRatesQuery : IRequest<Result<List<CurrencyRate>, CurrencyRateError>>
     {
