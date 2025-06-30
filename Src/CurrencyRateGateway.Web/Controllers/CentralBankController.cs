@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CurrencyRateGateway.Application.Queries;
+using CurrencyRateGateway.Application.Common.Dto;
 using CurrencyRateGateway.Application.Queries.RateQuery;
 using CurrencyRateGateway.Entities.Models;
 using CurrencyRateGateway.Web.Extensions;
@@ -29,9 +29,8 @@ namespace CurrencyRateGateway.Web.Controllers
         )]
         [SwaggerResponse(StatusCodes.Status200OK, "Успешный запрос", typeof(CurrencyRate))]
         [SwaggerResponse(StatusCodes.Status204NoContent, "Курс валюты не найден")]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, "Неверные параметры запроса")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Неверные параметры запроса", typeof(ErrorResponse))]
         [SwaggerResponse(StatusCodes.Status500InternalServerError, "Ошибка на стороне сервера")]
-
         [SwaggerResponse(StatusCodes.Status503ServiceUnavailable, "Сервис Банка России недоступен")]
         public async Task<IActionResult> GetCurrencies(
             [FromQuery, SwaggerParameter("Код валюты (например USD, EUR)", Required = false)]
