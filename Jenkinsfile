@@ -2,31 +2,42 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'localhost:5000/currency-api'
+        IMAGE_NAME = 'YOUR_USER/currency-api'
+        TAG = 'latest'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git url: 'https://github.com/SixteenMissedCalls/WebApi-test-project.git', branch: 'prod'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'dotnet restore Src/CurrencyRateGateway'
+                sh 'dotnet publish Src/CurrencyRateGateway -c Release -o publish'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t $IMAGE_NAME:$TAG -f Src/CurrencyRateGateway/Dockerfile .'
             }
         }
 
-        stage('Push to Local Registry') {
+        stage('Docker Login & Push') {
             steps {
-                sh 'docker push $IMAGE_NAME'
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'YOUR_DOCKER_USER', passwordVariable: 'YOUR_DOCKER_PASS')]) {
+                    sh 'echo "$YOUR_DOCKER_PASS" | docker login -u "$YOUR_DOCKER_USER" --password-stdin'
+                    sh 'docker push $IMAGE_NAME:$TAG'
+                }
             }
         }
 
-        stage('Run Container') {
+        stage('Cleanup') {
             steps {
-                sh 'docker run -d --rm -p 8081:80 --name currency-api $IMAGE_NAME'
+                sh 'docker rmi $IMAGE_NAME:$TAG || true'
             }
         }
     }

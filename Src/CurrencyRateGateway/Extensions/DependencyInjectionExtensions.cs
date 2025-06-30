@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace CurrencyRateGateway.Extensions
 {
@@ -33,6 +34,7 @@ namespace CurrencyRateGateway.Extensions
                     Version = "v1",
                     Description = "API для получения курсов валют из Банка России"
                 });
+
             });
         }
 
