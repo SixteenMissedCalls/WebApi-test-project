@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Net;
 using System.Text;
 using CSharpFunctionalExtensions;
 using CurrencyRateGateway.Entities.Exceptions;

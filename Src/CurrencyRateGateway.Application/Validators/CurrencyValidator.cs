@@ -1,6 +1,5 @@
 ﻿#nullable enable
 using System;
-using System.Net;
 using CSharpFunctionalExtensions;
 using CurrencyRateGateway.Entities.Exceptions;
 

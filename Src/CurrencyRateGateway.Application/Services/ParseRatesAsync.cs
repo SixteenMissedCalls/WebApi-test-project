@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using CSharpFunctionalExtensions;
 using CurrencyRateGateway.Application.Common.Dto;
@@ -16,8 +18,15 @@ namespace CurrencyRateGateway.Application.Services
     {
         public Result<List<CurrencyRate>, CurrencyRateError> Parse(Stream stream, string code)
         {
-            var deserializer = new XmlSerializer(typeof(ValCursXmlDto));
-            var dto = (ValCursXmlDto)deserializer.Deserialize(stream);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            
+            using var reader = new StreamReader(stream, Encoding.GetEncoding("windows-1251"));
+            using var xmlReader = XmlReader.Create(reader);
+
+            var serializer = new XmlSerializer(typeof(ValCursXmlDto));
+            var dto = (ValCursXmlDto)serializer.Deserialize(xmlReader);
+            
+            stream.Dispose();
 
             var entities = dto.Valutes.Select(v => v.ToDomain(dto.Date)).ToList();
             var result = string.IsNullOrEmpty(code)

@@ -22,13 +22,14 @@ namespace CurrencyRateGateway.Web.Extensions
         {
             var errorResponse = new
             {
+                error.Code,
                 error.Message
             };
 
             switch (error.Code)
             {
                 case ErrorCodes.CurrencyRateNotFound:
-                    return new NotFoundObjectResult(errorResponse);
+                    return new NoContentResult();
 
                 case ErrorCodes.InvalidCurrencyCode:
                 case ErrorCodes.InvalidDate:

@@ -10,9 +10,9 @@ namespace CurrencyRateGateway.Application.Pipelines
     public class LogFailuresBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TResponse : IResult
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<LogFailuresBehavior<TRequest, TResponse>> _logger;
 
-        public LogFailuresBehavior(ILogger logger)
+        public LogFailuresBehavior(ILogger<LogFailuresBehavior<TRequest, TResponse>> logger)
         {
             _logger = logger;
         }

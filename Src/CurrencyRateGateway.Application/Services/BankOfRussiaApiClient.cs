@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace CurrencyRateGateway.Application.Services
         public async Task<Result<Stream, CurrencyRateError>> GetRatesAsync(string url, CancellationToken token = default)
         {
             var client = _httpClientFactory.CreateClient();
-            using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
+            var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
             
             if(!response.IsSuccessStatusCode)
                 return Result.Failure<Stream, CurrencyRateError>(ErrorCodes.BankServiceUnavailable.ToDomainError());

@@ -2,9 +2,12 @@
 using System.Threading.Tasks;
 using CurrencyRateGateway.Application.Queries;
 using CurrencyRateGateway.Application.Queries.RateQuery;
+using CurrencyRateGateway.Entities.Models;
 using CurrencyRateGateway.Web.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace CurrencyRateGateway.Web.Controllers
 {
@@ -20,7 +23,20 @@ namespace CurrencyRateGateway.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCurrencies([FromQuery] string currencyCode, [FromQuery] DateTime? date)
+        [SwaggerOperation(
+            Summary = "Получение курсов валют",
+            Description = "Возвращает курс указанной валюты или список всех валют на указанную дату"
+        )]
+        [SwaggerResponse(StatusCodes.Status200OK, "Успешный запрос", typeof(CurrencyRate))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Курс валюты не найден")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Неверные параметры запроса")]
+        [SwaggerResponse(StatusCodes.Status500InternalServerError, "Ошибка на стороне сервера")]
+
+        [SwaggerResponse(StatusCodes.Status503ServiceUnavailable, "Сервис Банка России недоступен")]
+        public async Task<IActionResult> GetCurrencies(
+            [FromQuery, SwaggerParameter("Код валюты (например USD, EUR)", Required = false)]
+            string currencyCode,
+            [FromQuery, SwaggerParameter("Дата курса в формате YYYY-MM-DD", Required = false)] DateTime? date)
         {
             var query = new GetRatesQuery
             {

@@ -10,7 +10,7 @@ namespace CurrencyRateGateway.Entities.Exceptions
 {
     public enum ErrorCodes
     {
-        [ErrorDescription(Description = "Unknown error", Level = Level.Critical)]
+        [ErrorDescription(Description = "Internal server error", Level = Level.Critical)]
         Default = 0,
 
         [ErrorDescription(Description = "Currency rate not found", Level = Level.NotError)]
@@ -40,7 +40,7 @@ namespace CurrencyRateGateway.Entities.Exceptions
         public CurrencyRateError(ErrorCodes errorCode)
         {
             Code = errorCode;
-            Message = $"{errorCode}: {GetDefaultMessage(errorCode)}";
+            Message = GetDefaultMessage(errorCode);
             LogLevel = GetLogLevel(errorCode);
         }
         
