@@ -17,7 +17,57 @@
 - .NET Core 3.1
 - Доступ к сайту Банка России для получения данных о курсах валют.
 
-## Установка и запуск
-1. Клонируйте репозиторий:
-   ```bash
-   git clone <repository-url>
+## 🚀 Быстрый старт
+
+### 1. Клонируйте репозиторий
+
+```bash
+git clone https://github.com/SixteenMissedCalls/WebApi-test-project.git
+cd WebApi-test-project/Src/CurrencyRateGateway
+```
+
+### 2. Запуск без Docker
+
+#### ✅ Через .NET CLI
+
+```bash
+dotnet restore
+dotnet build
+dotnet run
+```
+
+#### 🌐 После запуска:
+
+Откройте Swagger:
+```
+http://localhost:5000/swagger
+```
+
+Порт может отличаться — смотрите в консоли при запуске.
+
+---
+
+### 3. Запуск через Docker
+
+> ⚠️ Убедитесь, что установлен Docker Desktop
+
+```bash
+docker build -t currency-rate-api -f Src/CurrencyRateGateway/Dockerfile .
+docker run -d -p 5000:80 --name currency-api currency-rate-api
+```
+
+Swagger будет доступен по адресу:
+
+```
+http://localhost:5000/swagger
+```
+
+---
+
+## 📥 Примеры запросов
+
+### Получить курс валюты:
+
+```
+GET /api/currencies?currencyCode=USD&date=2024-06-01
+```
