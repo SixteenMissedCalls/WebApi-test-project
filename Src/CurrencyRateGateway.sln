@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRateGateway", "CurrencyRateGateway\CurrencyRateGateway.csproj", "{ABE012CB-E027-4481-80A7-EA9BF1C0FC89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyRateGateway", "CurrencyRateGateway\CurrencyRateGateway.csproj", "{ABE012CB-E027-4481-80A7-EA9BF1C0FC89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRateGateway.Application", "CurrencyRateGateway.Application\CurrencyRateGateway.Application.csproj", "{FA7A908C-C2F6-48E3-B8DE-E4E34EA74FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyRateGateway.Application", "CurrencyRateGateway.Application\CurrencyRateGateway.Application.csproj", "{FA7A908C-C2F6-48E3-B8DE-E4E34EA74FF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRateGateway.Entities", "CurrencyRateGateway.Entities\CurrencyRateGateway.Entities.csproj", "{CBA84944-EE5E-4D6A-A505-1C7DFCCB160C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyRateGateway.Entities", "CurrencyRateGateway.Entities\CurrencyRateGateway.Entities.csproj", "{CBA84944-EE5E-4D6A-A505-1C7DFCCB160C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyRateGateway.Web", "CurrencyRateGateway.Web\CurrencyRateGateway.Web.csproj", "{E9EE80CB-2D2B-4446-B37E-01EABED13105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyRateGateway.Web", "CurrencyRateGateway.Web\CurrencyRateGateway.Web.csproj", "{E9EE80CB-2D2B-4446-B37E-01EABED13105}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8B813E21-66E2-4ED7-A05D-44F70D496ABB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,18 @@ Global
 		{E9EE80CB-2D2B-4446-B37E-01EABED13105}.Release|x64.Build.0 = Release|Any CPU
 		{E9EE80CB-2D2B-4446-B37E-01EABED13105}.Release|x86.ActiveCfg = Release|Any CPU
 		{E9EE80CB-2D2B-4446-B37E-01EABED13105}.Release|x86.Build.0 = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|x64.Build.0 = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|x64.Build.0 = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B813E21-66E2-4ED7-A05D-44F70D496ABB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
