@@ -1,0 +1,6 @@
+services:
+  currencyrategateway:
+    image: ${DOCKER_REGISTRY-}currencyrategateway
+    build:
+      context: .
+      dockerfile: CurrencyRateGateway/Dockerfile
